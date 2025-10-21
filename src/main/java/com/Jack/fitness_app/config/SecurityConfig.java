@@ -55,6 +55,7 @@ public class SecurityConfig {
 
                 // Public vs protected endpoints
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("OPTIONS", "/**").permitAll()  // Allow all OPTIONS requests for CORS
                         .requestMatchers("/api/auth/**",
                                 "/api/oneTimeSession/addOneTimeSession",
                                 "/api/oneTimeSession/viewOneTimeSessionList",
@@ -64,14 +65,8 @@ public class SecurityConfig {
                                 "/api/regularClass/viewRegularClass/{id}",
                                 "/api/regularClass/enrolRegularClass/{id}",
                                 "/api/oneTimeSession/enrolSession/{id}"
-
-
-
-
                                 ).permitAll()  // login, register, verify
                         .anyRequest().authenticated()
-
-
                 )
 
                 // Disable default login form and basic auth
