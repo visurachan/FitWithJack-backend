@@ -19,7 +19,8 @@ public class CorsConfig {
         configuration.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:*",
                 "https://fitnessjack.vercel.app",
-                "https://*.vercel.app"
+                "https://fitness-app-frontend-*.vercel.app",
+                "https://*-visurachans-projects.vercel.app"
         ));
 
         // Allow all HTTP methods
