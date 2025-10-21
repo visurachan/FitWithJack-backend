@@ -12,27 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class CorsConfig implements WebMvcConfigurer {
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins(
-                        "https://fitnessjack.vercel.app",
-                        "https://fitness-app-frontend-e9y0hmk69-visurachans-projects.vercel.app",
-                        "http://localhost:5173",
-                        "http://localhost:5174",
-                        "http://localhost:3000"
-                )
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
+public class CorsConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        // Explicitly set allowed origins
         configuration.setAllowedOrigins(Arrays.asList(
                 "https://fitnessjack.vercel.app",
                 "https://fitness-app-frontend-e9y0hmk69-visurachans-projects.vercel.app",
@@ -40,8 +26,9 @@ public class CorsConfig implements WebMvcConfigurer {
                 "http://localhost:5174",
                 "http://localhost:3000"
         ));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
