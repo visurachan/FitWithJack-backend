@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Security - DO NOT COMMIT ###
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+.env
+.env.local
+.env.*.local
+application-secrets.properties
+application-local.properties
