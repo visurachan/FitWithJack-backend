@@ -16,11 +16,10 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Allow requests from frontend
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://localhost:3000",
-                "https://fitnessjack.vercel.app"
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:*",
+                "https://fitnessjack.vercel.app",
+                "https://*.vercel.app"
         ));
 
         // Allow all HTTP methods
