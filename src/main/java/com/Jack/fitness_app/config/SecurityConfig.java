@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,8 +45,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Enable CORS with our configuration
+                .cors(Customizer.withDefaults())
                 // Disable CSRF for REST APIs
-                .cors(cors -> cors.configure(http))
                 .csrf(csrf -> csrf.disable())
 
                 // Stateless session; no cookies
@@ -53,6 +55,7 @@ public class SecurityConfig {
 
                 // Public vs protected endpoints
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("OPTIONS", "/**").permitAll()  // Allow all OPTIONS requests for CORS
                         .requestMatchers("/api/auth/**",
                                 "/api/oneTimeSession/addOneTimeSession",
                                 "/api/oneTimeSession/viewOneTimeSessionList",
@@ -62,14 +65,8 @@ public class SecurityConfig {
                                 "/api/regularClass/viewRegularClass/{id}",
                                 "/api/regularClass/enrolRegularClass/{id}",
                                 "/api/oneTimeSession/enrolSession/{id}"
-
-
-
-
                                 ).permitAll()  // login, register, verify
                         .anyRequest().authenticated()
-
-
                 )
 
                 // Disable default login form and basic auth
